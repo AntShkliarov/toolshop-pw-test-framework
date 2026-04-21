@@ -9,14 +9,17 @@ export class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.emailInput = page.getByLabel('Email');
-    this.passwordInput = page.getByLabel('Password');
-    this.submitButton = page.getByRole('button', { name: /submit|log in|sign in/i });
-    this.errorMessage = page.getByRole('alert');
+    this.emailInput = page.locator('#email');
+    this.passwordInput = page.locator('#password');
+    this.submitButton = page.locator('[data-test="login-submit"]');
+    this.errorMessage = page
+      .getByRole('alert')
+      .or(page.locator('.help-block'))
+      .or(page.locator('.alert-danger'));
   }
 
   async open(): Promise<void> {
-    await this.navigate('/login');
+    await this.navigate('/auth/login');
   }
 
   async fillAndSubmit(email: string, password: string): Promise<void> {
