@@ -8,5 +8,6 @@ test.describe('Login page', () => {
     await loginPage.fillAndSubmit('invalid-email', 'short');
 
     await expect(loginPage.errorMessage).toBeVisible();
+    await expect(loginPage.errorMessage).toContainText('Email format is invalid');
   });
 });

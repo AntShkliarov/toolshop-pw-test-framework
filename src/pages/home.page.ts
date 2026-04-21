@@ -6,7 +6,8 @@ export class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.mainHeading = page.getByRole('heading', { level: 1 });
+    // The public practice app currently exposes "Sort" as the first stable heading on home.
+    this.mainHeading = page.getByRole('heading', { name: 'Sort', level: 4 });
   }
 
   async open(): Promise<void> {

@@ -13,14 +13,14 @@ jobs:
     name: Run E2E and API tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.58.1-noble
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
       options: --user 1001
     env:
       CI: "true"
       BASE_URL: https://practicesoftwaretesting.com
       TEST_ENV: prod
       PROD_URL: https://practicesoftwaretesting.com
-      PROD_API_URL: https://api.practicesoftwaretesting.com/api
+      PROD_API_URL: https://api.practicesoftwaretesting.com
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
