@@ -4,7 +4,9 @@ import { USERS_ENDPOINTS } from '../../src/api/endpoints/users.endpoints';
 import { VALID_ADMIN, INVALID_USER } from '../../src/data/constants';
 
 test.describe('Users API', () => {
-  test('POST /auth/login returns a token for valid credentials @api', async ({ apiContext }) => {
+  test('POST /users/login returns an access token for valid credentials @api', async ({
+    apiContext,
+  }) => {
     const response = await apiContext.post(USERS_ENDPOINTS.LOGIN, {
       data: {
         email: VALID_ADMIN.email,
@@ -14,10 +16,13 @@ test.describe('Users API', () => {
 
     expect(response.ok()).toBeTruthy();
     const body = await response.json();
-    expect(body).toHaveProperty('token');
+    expect(body).toMatchObject({
+      access_token: expect.any(String),
+      token_type: expect.any(String),
+    });
   });
 
-  test('POST /auth/login returns 401 for invalid credentials @api', async ({ apiContext }) => {
+  test('POST /users/login returns 401 for invalid credentials @api', async ({ apiContext }) => {
     const response = await apiContext.post(USERS_ENDPOINTS.LOGIN, {
       data: {
         email: INVALID_USER.email,
