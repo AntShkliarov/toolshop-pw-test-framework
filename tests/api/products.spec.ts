@@ -26,4 +26,12 @@ test.describe('Products API', () => {
     const body = await response.json();
     expect(body).toHaveProperty('id', firstProductId);
   });
+
+  test('POST /products returns 405 when method is not allowed @api', async ({ apiContext }) => {
+    const response = await apiContext.post(PRODUCTS_ENDPOINTS.BASE, {
+      data: {},
+    });
+
+    expect(response.status()).toBe(405);
+  });
 });
