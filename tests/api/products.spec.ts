@@ -26,4 +26,12 @@ test.describe('Products API', () => {
     const body = await response.json();
     expect(body).toHaveProperty('id', firstProductId);
   });
+
+  test('PATCH /products returns 405 for unsupported method @api', async ({ apiContext }) => {
+    const response = await apiContext.patch(PRODUCTS_ENDPOINTS.BASE, {
+      data: {},
+    });
+
+    expect(response.status()).toBe(405);
+  });
 });
