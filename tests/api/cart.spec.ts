@@ -60,4 +60,14 @@ test.describe('Cart API', () => {
       quantity: 1,
     });
   });
+
+  test('GET /carts/:id returns 404 for a non-existent cart @api', async ({ apiContext }) => {
+    const response = await apiContext.get(CART_ENDPOINTS.BY_ID('does-not-exist'));
+
+    expect(response.status()).toBe(404);
+    const body = await response.json();
+    expect(body).toMatchObject({
+      message: expect.any(String),
+    });
+  });
 });

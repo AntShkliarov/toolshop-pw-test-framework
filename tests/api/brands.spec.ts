@@ -33,4 +33,14 @@ test.describe('Brands API', () => {
       slug: firstBrand.slug,
     });
   });
+
+  test('GET /brands/:id returns 404 for non-existent brand @api', async ({ apiContext }) => {
+    const response = await apiContext.get(BRANDS_ENDPOINTS.BY_ID('non-existent-brand-id'));
+
+    expect(response.status()).toBe(404);
+    const body = await response.json();
+    expect(body).toMatchObject({
+      message: expect.any(String),
+    });
+  });
 });
