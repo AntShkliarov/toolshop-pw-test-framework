@@ -1,6 +1,6 @@
 export const VALID_ADMIN = {
-  email: 'admin@example.com',
-  password: 'secure-password',
+  email: 'customer@practicesoftwaretesting.com',
+  password: 'welcome01',
 };
 
 export const INVALID_USER = {

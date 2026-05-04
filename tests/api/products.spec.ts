@@ -8,15 +8,21 @@ test.describe('Products API', () => {
 
     expect(response.ok()).toBeTruthy();
     const body = await response.json();
-    expect(Array.isArray(body)).toBeTruthy();
-    expect(body.length).toBeGreaterThan(0);
+    expect(Array.isArray(body.data)).toBeTruthy();
+    expect(body.data.length).toBeGreaterThan(0);
   });
 
   test('GET /products/:id returns the correct product @api', async ({ apiContext }) => {
-    const response = await apiContext.get(PRODUCTS_ENDPOINTS.BY_ID(1));
+    const allProductsResponse = await apiContext.get(PRODUCTS_ENDPOINTS.BASE);
+    expect(allProductsResponse.ok()).toBeTruthy();
+    const allProductsBody = await allProductsResponse.json();
+    const firstProduct = allProductsBody?.data?.[0];
+    expect(firstProduct?.id).toBeTruthy();
+
+    const response = await apiContext.get(PRODUCTS_ENDPOINTS.BY_ID(firstProduct.id));
 
     expect(response.ok()).toBeTruthy();
     const body = await response.json();
-    expect(body).toHaveProperty('id', 1);
+    expect(body).toHaveProperty('id', firstProduct.id);
   });
 });
